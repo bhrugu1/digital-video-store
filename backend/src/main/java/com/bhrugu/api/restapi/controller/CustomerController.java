@@ -3,6 +3,7 @@ package com.bhrugu.api.restapi.controller;
 import com.bhrugu.api.restapi.model.Customer;
 import com.bhrugu.api.restapi.service.CustomerService;
 import com.bhrugu.api.restapi.dto.CustomerRegistrationRequest;
+import com.bhrugu.api.restapi.dto.CustomerLoginRequest;
 import com.bhrugu.api.restapi.dto.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,6 +62,48 @@ public class CustomerController {
         } catch (Exception e) {
             ApiResponse<Customer> errorResponse = ApiResponse.error(
                     "Registration failed: " + e.getMessage(), 500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+    
+    /**
+     * POST /api/customers/login - Authenticate customer login
+     * Accepts JSON data from frontend login form
+     * Validates credentials against MongoDB database
+     * 
+     * @param loginRequest The login data (username/email, password)
+     * @return ApiResponse with success/error message and customer data
+     */
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<Customer>> loginCustomer(
+            @RequestBody CustomerLoginRequest loginRequest) {
+        
+        try {
+            // Basic validation
+            if (!loginRequest.isValid()) {
+                ApiResponse<Customer> errorResponse = ApiResponse.error("Username and password are required", 400);
+                return ResponseEntity.badRequest().body(errorResponse);
+            }
+            
+            // Authenticate customer through service layer
+            ApiResponse<Customer> response = customerService.authenticateCustomer(loginRequest);
+            
+            // Return appropriate HTTP status based on response
+            if (response.isSuccess()) {
+                return ResponseEntity.ok(response);
+            } else {
+                HttpStatus status = HttpStatus.BAD_REQUEST;
+                if (response.getStatusCode() == 401) {
+                    status = HttpStatus.UNAUTHORIZED; // Invalid credentials
+                } else if (response.getStatusCode() == 500) {
+                    status = HttpStatus.INTERNAL_SERVER_ERROR;
+                }
+                return ResponseEntity.status(status).body(response);
+            }
+            
+        } catch (Exception e) {
+            ApiResponse<Customer> errorResponse = ApiResponse.error(
+                    "Login failed: " + e.getMessage(), 500);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }

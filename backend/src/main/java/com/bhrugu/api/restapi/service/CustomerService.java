@@ -3,6 +3,7 @@ package com.bhrugu.api.restapi.service;
 import com.bhrugu.api.restapi.model.Customer;
 import com.bhrugu.api.restapi.repository.CustomerRepository;
 import com.bhrugu.api.restapi.dto.CustomerRegistrationRequest;
+import com.bhrugu.api.restapi.dto.CustomerLoginRequest;
 import com.bhrugu.api.restapi.dto.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,6 +63,50 @@ public class CustomerService {
             
         } catch (Exception e) {
             return ApiResponse.error("Registration failed: " + e.getMessage(), 500);
+        }
+    }
+    
+    /**
+     * Authenticate customer login credentials
+     * @param loginRequest The login data from frontend
+     * @return ApiResponse with success/error message and customer data
+     */
+    public ApiResponse<Customer> authenticateCustomer(CustomerLoginRequest loginRequest) {
+        try {
+            // Validate login request
+            if (!loginRequest.isValid()) {
+                return ApiResponse.error("Username and password are required", 400);
+            }
+            
+            // Find customer by email (username field contains email)
+            String email = loginRequest.getUsername().toLowerCase().trim();
+            Optional<Customer> customerOpt = customerRepository.findByEmail(email);
+            
+            if (!customerOpt.isPresent()) {
+                return ApiResponse.error("Invalid email or password", 401);
+            }
+            
+            Customer customer = customerOpt.get();
+            
+            // Verify password (simple string comparison for demo purposes)
+            if (!customer.getPassword().equals(loginRequest.getPassword())) {
+                return ApiResponse.error("Invalid email or password", 401);
+            }
+            
+            // Update last login timestamp
+            updateLastLogin(customer.getId());
+            
+            // Create response without password
+            Customer responseCustomer = new Customer();
+            responseCustomer.setId(customer.getId());
+            responseCustomer.setFullName(customer.getFullName());
+            responseCustomer.setEmail(customer.getEmail());
+            responseCustomer.setLastLogin(LocalDateTime.now());
+            
+            return ApiResponse.success("Login successful", responseCustomer, 200);
+            
+        } catch (Exception e) {
+            return ApiResponse.error("Login failed: " + e.getMessage(), 500);
         }
     }
     
