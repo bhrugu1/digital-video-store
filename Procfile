@@ -1,1 +1,1 @@
-web: cd backend && ./mvnw clean spring-boot:run -Dserver.port=$PORT -DskipTests
+web: cd backend && java -Dserver.port=$PORT -jar target/*.jar

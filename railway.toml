@@ -1,5 +1,0 @@
-[build]
-buildCommand = "cd backend && chmod +x mvnw && ./mvnw clean package -DskipTests"
-
-[deploy]
-startCommand = "cd backend && java -Dserver.port=$PORT -jar target/*.jar"
