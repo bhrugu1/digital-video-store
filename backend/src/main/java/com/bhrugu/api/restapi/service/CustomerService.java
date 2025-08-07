@@ -5,7 +5,6 @@ import com.bhrugu.api.restapi.repository.CustomerRepository;
 import com.bhrugu.api.restapi.dto.CustomerRegistrationRequest;
 import com.bhrugu.api.restapi.dto.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.List;
@@ -22,10 +21,8 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     
-    private final BCryptPasswordEncoder passwordEncoder;
-    
     public CustomerService() {
-        this.passwordEncoder = new BCryptPasswordEncoder();
+        // Constructor without password encoder for demo purposes
     }
     
     /**
@@ -55,9 +52,8 @@ public class CustomerService {
             customer.setFullName(registrationRequest.getFullName().trim());
             customer.setEmail(registrationRequest.getEmail().toLowerCase().trim());
             
-            // Encrypt password using BCrypt
-            String encryptedPassword = passwordEncoder.encode(registrationRequest.getPassword());
-            customer.setPassword(encryptedPassword);
+            // Store password as-is for demo purposes (not recommended for production)
+            customer.setPassword(registrationRequest.getPassword());
             
             // Save customer to MongoDB
             Customer savedCustomer = customerRepository.save(customer);
@@ -176,12 +172,13 @@ public class CustomerService {
     }
     
     /**
-     * Verify password against encrypted password
+     * Verify password against stored password
      * @param rawPassword The plain text password
-     * @param encodedPassword The encrypted password from database
+     * @param encodedPassword The password from database
      * @return true if passwords match
      */
     public boolean verifyPassword(String rawPassword, String encodedPassword) {
-        return passwordEncoder.matches(rawPassword, encodedPassword);
+        // Simple string comparison for demo purposes (not recommended for production)
+        return rawPassword != null && rawPassword.equals(encodedPassword);
     }
 }
