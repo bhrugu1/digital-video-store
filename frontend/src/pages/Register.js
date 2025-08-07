@@ -1,13 +1,17 @@
 // Register page component - New user registration form
+// Handles user registration with backend API integration  
+// On successful registration: automatically logs in user and navigates to dashboard
+// On failed registration: displays error message
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Auth.css';
 import config from '../config/api';
 
 const Register = () => {
+  // Navigation hook for programmatic routing after registration
   const navigate = useNavigate();
   
-  // State to store all form input values
+  // Form data state - stores all registration form input values
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -15,31 +19,40 @@ const Register = () => {
     confirmPassword: ''
   });
 
-  // State for form submission
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  // UI state management
+  const [isLoading, setIsLoading] = useState(false); // Loading spinner during API call
+  const [error, setError] = useState(''); // Error message display
 
-  // Update form data when user types in any input field
+  /**
+   * Updates form state when user types in input fields
+   * Also clears any existing error messages for better UX
+   */
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-    // Clear error when user starts typing
+    // Clear error when user starts typing - improves user experience
     if (error) setError('');
   };
 
-  // Handle form submission using Assignment 2 registration endpoint
+  /**
+   * Handles form submission and registration process
+   * - Validates form inputs (password match, required fields)
+   * - Calls backend registration API
+   * - Automatically logs in user on successful registration
+   * - Updates header component via custom event
+   * - Navigates to dashboard on success
+   */
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault(); // Prevent page reload on form submission
     
-    // Check if passwords match before proceeding
+    // Client-side validation before API call
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match!');
       return;
     }
     
-    // Validate required fields
     if (!formData.fullName || !formData.email || !formData.password) {
       setError('All fields are required!');
       return;
@@ -51,7 +64,7 @@ const Register = () => {
     try {
       console.log('👤 Attempting registration with Assignment 2 API...');
       
-      // Use the Assignment 2 registration endpoint
+      // Call backend registration endpoint
       const response = await fetch(`${config.API_BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
@@ -69,18 +82,18 @@ const Register = () => {
       console.log('Registration API Response:', result);
 
       if (result.success) {
-        // Success! Store user data and redirect to dashboard
+        // Success! Auto-login user and store authentication data
         localStorage.setItem('user', JSON.stringify(result.data));
         localStorage.setItem('isLoggedIn', 'true');
         
-        // Trigger custom event to update header
+        // Trigger custom event to update header component immediately
         window.dispatchEvent(new Event('authStateChanged'));
         
         alert('✅ Registration successful! Welcome to StreamVault!');
         console.log('✅ User registered and logged in successfully:', result.data);
-        navigate('/dashboard');
+        navigate('/dashboard'); // Redirect to user dashboard
       } else {
-        // Registration failed
+        // Registration failed - show error message
         setError(result.message || 'Registration failed. Please try again.');
       }
 
@@ -88,9 +101,10 @@ const Register = () => {
       console.error('❌ Registration error:', error);
       setError('Network error. Please check your connection and try again.');
       
-      // For development, show a fallback message
+      // Development fallback message
       alert('⚠️ Registration endpoint not available. Make sure Spring Boot backend is running on port 8080.');
     } finally {
+      // Reset loading state regardless of success/failure
       setIsLoading(false);
     }
   };

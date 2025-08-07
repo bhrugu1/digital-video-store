@@ -1,37 +1,51 @@
 // Login page component - User authentication form
+// Handles user login with backend API integration
+// On successful login: stores user data in localStorage and navigates to dashboard
+// On failed login: displays error message
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Auth.css';
 import config from '../config/api';
 
 const Login = () => {
+  // Navigation hook for programmatic routing after login
   const navigate = useNavigate();
   
-  // State to store form input values
+  // Form data state - stores email and password input values
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
 
-  // State for form submission
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  // UI state management
+  const [isLoading, setIsLoading] = useState(false); // Loading spinner during API call
+  const [error, setError] = useState(''); // Error message display
 
-  // Update form data when user types in input fields
+  /**
+   * Updates form state when user types in input fields
+   * Also clears any existing error messages for better UX
+   */
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-    // Clear error when user starts typing
+    // Clear error when user starts typing - improves user experience
     if (error) setError('');
   };
 
-  // Handle form submission using Assignment 2 login endpoint
+  /**
+   * Handles form submission and authentication process
+   * - Validates form inputs
+   * - Calls backend authentication API
+   * - Stores user data in localStorage on success
+   * - Updates header component via custom event
+   * - Navigates to dashboard on successful login
+   */
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault(); // Prevent page reload on form submission
     
-    // Validate required fields
+    // Client-side validation before API call
     if (!formData.email || !formData.password) {
       setError('Both email and password are required!');
       return;
@@ -43,14 +57,14 @@ const Login = () => {
     try {
       console.log('🔐 Attempting login with Assignment 2 API...');
       
-      // Use the Assignment 2 login endpoint
+      // Call backend authentication endpoint
       const response = await fetch(`${config.API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: formData.email, // Using email as username
+          username: formData.email, // Backend expects 'username' field
           password: formData.password
         })
       });
@@ -59,18 +73,18 @@ const Login = () => {
       console.log('Login API Response:', result);
 
       if (result.success) {
-        // Success! Store user data and redirect to dashboard
+        // Success! Store authentication data in localStorage
         localStorage.setItem('user', JSON.stringify(result.data));
         localStorage.setItem('isLoggedIn', 'true');
         
-        // Trigger custom event to update header
+        // Trigger custom event to update header component immediately
         window.dispatchEvent(new Event('authStateChanged'));
         
         alert('✅ Login successful! Welcome back!');
         console.log('✅ User logged in successfully:', result.data);
-        navigate('/dashboard');
+        navigate('/dashboard'); // Redirect to user dashboard
       } else {
-        // Login failed
+        // Authentication failed - show error message
         setError(result.message || 'Invalid email or password. Please try again.');
       }
 
@@ -78,9 +92,10 @@ const Login = () => {
       console.error('❌ Login error:', error);
       setError('Network error. Please check your connection and try again.');
       
-      // For development, show a fallback message
+      // Development fallback message
       alert('⚠️ Login endpoint not available. Make sure Spring Boot backend is running on port 8080.');
     } finally {
+      // Reset loading state regardless of success/failure
       setIsLoading(false);
     }
   };

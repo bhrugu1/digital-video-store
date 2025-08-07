@@ -13,11 +13,16 @@ import java.util.Optional;
  * REST Controller for Media operations
  * Provides RESTful API endpoints for the digital video store
  * Works with MongoDB through MediaService
+ * 
+ * All endpoints return JSON responses and support CORS for frontend integration
+ * Frontend deployed at: https://digital-video-store-iota.vercel.app
+ * Backend deployed at: https://digital-video-store-production.up.railway.app
  */
 @RestController
 @RequestMapping("/api")
 public class MediaController {
     
+    // Dependency injection - Spring automatically provides MediaService instance
     @Autowired
     private MediaService mediaService;
     
@@ -90,8 +95,21 @@ public class MediaController {
     
     /**
      * POST /api/media - Create new media in MongoDB
-     * @param media The media object to create
-     * @return Created media with generated ObjectId
+     * Used for adding new movies/TV shows via Postman or admin interface
+     * 
+     * @param media The media object to create (JSON from request body)
+     * @return 201 Created with the saved media including generated MongoDB _id
+     * 
+     * Request body example:
+     * {
+     *   "title": "New Movie",
+     *   "type": "movie",
+     *   "synopsis": "Description...",
+     *   "poster": "https://image.url",
+     *   "posterLarge": "https://image.url",
+     *   "rent": 4.99,
+     *   "buy": 14.99
+     * }
      */
     @PostMapping("/media")
     public ResponseEntity<Media> createMedia(@RequestBody Media media) {
@@ -117,15 +135,24 @@ public class MediaController {
     
     /**
      * DELETE /api/media/{id} - Delete media from MongoDB
-     * @param id The MongoDB ObjectId as string
-     * @return 204 No Content if deleted, 404 if not found
+     * Used by frontend and Postman for content management
+     * 
+     * @param id The MongoDB ObjectId as string (24 characters)
+     * @return 204 No Content if deleted successfully, 404 if media not found
+     * 
+     * Example usage:
+     * DELETE https://digital-video-store-production.up.railway.app/api/media/68922dbd7aae69d406a68782
+     * Success: 204 No Content
+     * Not Found: 404 Not Found
      */
     @DeleteMapping("/media/{id}")
     public ResponseEntity<Void> deleteMedia(@PathVariable String id) {
         boolean deleted = mediaService.deleteMedia(id);
         if (deleted) {
+            // Return 204 No Content for successful deletion
             return ResponseEntity.noContent().build();
         } else {
+            // Return 404 Not Found if media doesn't exist
             return ResponseEntity.notFound().build();
         }
     }

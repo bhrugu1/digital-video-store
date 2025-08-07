@@ -14,33 +14,53 @@ import org.springframework.web.bind.annotation.*;
  * REST Controller for Authentication operations
  * Provides RESTful API endpoints for user login and registration
  * Works with CustomerService for database operations
+ * 
+ * Frontend Integration:
+ * - Login endpoint called from Login.js component
+ * - Registration endpoint called from Register.js component  
+ * - Returns ApiResponse wrapper with success/error status
+ * - User data stored in frontend localStorage for session management
  */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
     
+    // Dependency injection for customer business logic
     @Autowired
     private CustomerService customerService;
     
     /**
      * POST /api/auth/register - Register a new customer
-     * Accepts JSON data from frontend registration form
+     * Accepts JSON data from frontend registration form (Register.js)
      * 
-     * @param registrationRequest The registration data
+     * @param registrationRequest The registration data from frontend
      * @return ApiResponse with success/error message and customer data
+     * 
+     * Frontend behavior:
+     * - On success: User is automatically logged in and redirected to dashboard
+     * - On failure: Error message displayed on registration form
+     * 
+     * Request body example:
+     * {
+     *   "fullName": "John Doe",
+     *   "email": "john@example.com", 
+     *   "password": "password123",
+     *   "confirmPassword": "password123"
+     * }
      */
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<Customer>> register(
             @RequestBody CustomerRegistrationRequest registrationRequest) {
         
         try {
-            // Delegate to customer service
+            // Delegate to customer service for business logic
             ApiResponse<Customer> response = customerService.registerCustomer(registrationRequest);
             
             // Return appropriate HTTP status based on response
             if (response.isSuccess()) {
                 return ResponseEntity.status(HttpStatus.CREATED).body(response);
             } else {
+                // Map service response codes to HTTP status codes
                 HttpStatus status = HttpStatus.BAD_REQUEST;
                 if (response.getStatusCode() == 409) {
                     status = HttpStatus.CONFLICT; // Email already exists
@@ -51,6 +71,7 @@ public class AuthController {
             }
             
         } catch (Exception e) {
+            // Handle unexpected errors
             ApiResponse<Customer> errorResponse = ApiResponse.error(
                     "Registration failed: " + e.getMessage(), 500);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);

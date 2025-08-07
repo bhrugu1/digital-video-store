@@ -11,10 +11,16 @@ import java.util.Optional;
  * Service layer for Media operations
  * Handles business logic for media management
  * Works with MongoDB through MediaRepository
+ * 
+ * This service acts as an intermediary between the REST controller and database
+ * - Encapsulates business logic and validation
+ * - Provides clean interface for data operations
+ * - Handles error cases and data transformations
  */
 @Service
 public class MediaService {
     
+    // Repository injection - Spring Data MongoDB automatically implements CRUD operations
     @Autowired
     private MediaRepository mediaRepository;
     
@@ -102,15 +108,22 @@ public class MediaService {
     
     /**
      * Delete media from MongoDB
+     * Used by DELETE /api/media/{id} endpoint
+     * 
      * @param id The MongoDB ObjectId as string
-     * @return true if deleted successfully, false if not found
+     * @return true if media was found and deleted, false if media doesn't exist
+     * 
+     * Implementation:
+     * 1. Check if media exists in database
+     * 2. If exists: delete it and return true
+     * 3. If not found: return false (controller returns 404)
      */
     public boolean deleteMedia(String id) {
         if (mediaRepository.existsById(id)) {
             mediaRepository.deleteById(id);
-            return true;
+            return true; // Successfully deleted
         }
-        return false;
+        return false; // Media not found
     }
     
     /**

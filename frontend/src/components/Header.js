@@ -1,17 +1,31 @@
 
 // Header component - Navigation bar that appears on every page
+// Handles user authentication state display and navigation
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  // State management for search functionality
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Authentication state - tracks if user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  // User data from localStorage (contains fullName, email, etc.)
   const [user, setUser] = useState(null);
+  
+  // UI state for user dropdown menu visibility
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+  
+  // Navigation hook for programmatic routing
   const navigate = useNavigate();
 
-  // Check login status on component mount
+  // Check login status on component mount and listen for auth changes
   useEffect(() => {
+    /**
+     * Checks localStorage for authentication status and user data
+     * Updates component state accordingly
+     */
     const checkLoginStatus = () => {
       const loginStatus = localStorage.getItem('isLoggedIn');
       const userData = localStorage.getItem('user');
@@ -19,6 +33,7 @@ const Header = () => {
       if (loginStatus && userData) {
         setIsLoggedIn(true);
         try {
+          // Parse stored user data (contains fullName, email, etc.)
           setUser(JSON.parse(userData));
         } catch (error) {
           console.error('Error parsing user data:', error);
@@ -29,64 +44,87 @@ const Header = () => {
       }
     };
 
+    // Initial check when component mounts
     checkLoginStatus();
     
     // Listen for storage changes (when user logs in/out in another tab)
     window.addEventListener('storage', checkLoginStatus);
     
     // Listen for custom auth events (when user logs in/out in same tab)
+    // This ensures immediate UI updates without page refresh
     window.addEventListener('authStateChanged', checkLoginStatus);
     
+    // Cleanup event listeners on component unmount
     return () => {
       window.removeEventListener('storage', checkLoginStatus);
       window.removeEventListener('authStateChanged', checkLoginStatus);
     };
   }, []);
 
-  // Handle logout
+  /**
+   * Handles user logout process
+   * - Clears authentication data from localStorage
+   * - Resets component state
+   * - Triggers custom event to update other components
+   * - Navigates user back to homepage
+   */
   const handleLogout = () => {
+    // Remove authentication data
     localStorage.removeItem('user');
     localStorage.removeItem('isLoggedIn');
+    
+    // Reset component state
     setIsLoggedIn(false);
     setUser(null);
     setShowUserDropdown(false);
     
-    // Trigger custom event to update other components
+    // Trigger custom event to update other components immediately
     window.dispatchEvent(new Event('authStateChanged'));
     
     alert('👋 You have been logged out successfully.');
     navigate('/');
   };
 
-  // Toggle user dropdown
+  /**
+   * Toggles the visibility of user dropdown menu
+   */
   const toggleUserDropdown = () => {
     setShowUserDropdown(!showUserDropdown);
   };
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside - improves UX
   useEffect(() => {
+    /**
+     * Handles clicks outside the dropdown to close it
+     * This prevents the dropdown from staying open when user clicks elsewhere
+     */
     const handleClickOutside = (event) => {
       if (!event.target.closest('.user-dropdown')) {
         setShowUserDropdown(false);
       }
     };
 
+    // Only add listener when dropdown is open
     if (showUserDropdown) {
       document.addEventListener('click', handleClickOutside);
     }
 
+    // Cleanup listener
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, [showUserDropdown]);
 
-  // Handle search form submission
+  /**
+   * Handles search form submission
+   * Navigates to listings page with search query as URL parameter
+   */
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       // Navigate to listings page with search query
       navigate(`/listings?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
+      setSearchQuery(''); // Clear search input
     }
   };
 
