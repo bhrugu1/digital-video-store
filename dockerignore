@@ -1,0 +1,12 @@
+# Ignore non-backend files
+frontend/
+src/
+node_modules/
+*.py
+*.md
+*.bat
+*.sh
+.git/
+.vscode/
+*.json
+!backend/
