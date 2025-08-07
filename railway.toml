@@ -1,11 +1,5 @@
 [build]
-# Build configuration for Railway
-buildCommand = "cd backend && ./mvnw clean package -DskipTests"
+buildCommand = "cd backend && chmod +x mvnw && ./mvnw clean package -DskipTests"
 
 [deploy]
-# Deployment configuration
-startCommand = "cd backend && java -jar target/*.jar"
-
-[environments.production]
-# Production environment variables
-SPRING_PROFILES_ACTIVE = "production"
+startCommand = "cd backend && java -Dserver.port=$PORT -jar target/*.jar"
