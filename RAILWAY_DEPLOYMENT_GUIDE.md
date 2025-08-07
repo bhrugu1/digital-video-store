@@ -1,33 +1,47 @@
 # Railway Deployment Guide for Digital Video Store Backend
 
 ## Problem Solution
-The Railway deployment was failing because Nixpacks couldn't detect the Spring Boot application in the `backend/` subdirectory. This has been fixed with the following configuration files:
+The Railway deployment was failing because:
+1. Railway was trying to use an empty `pom.xml` in the root directory
+2. Nixpacks couldn't properly detect the Spring Boot app in the subdirectory
 
-### Files Added:
-1. `railway.toml` - Tells Railway to build and deploy from the backend directory
-2. `Procfile` - Alternative deployment configuration
-3. Updated `backend/src/main/resources/application.properties` - Railway-compatible configuration
+This has been fixed with multiple configuration approaches:
+
+### Files Added/Updated:
+1. `railway.toml` - Railway configuration with explicit build commands
+2. `nixpacks.toml` - Nixpacks-specific configuration
+3. `Procfile` - Heroku-style process file
+4. `build.sh` - Build script for Railway
+5. Removed empty `pom.xml` from root directory
+6. Updated `backend/src/main/resources/application.properties` - Railway-compatible configuration
 
 ## Deployment Steps
 
 ### 1. Push Updated Configuration
 ```bash
 git add .
-git commit -m "Add Railway deployment configuration"
+git commit -m "Fix Railway deployment with multiple configuration approaches"
 git push origin main
 ```
 
 ### 2. Railway Setup
 1. Go to [Railway.app](https://railway.app/)
 2. Login with GitHub
-3. Click "New Project" → "Deploy from GitHub repo"
-4. Select your `digital-video-store` repository
-5. Railway should now detect the Spring Boot application correctly
+3. If you already have a project, delete it and create a new one
+4. Click "New Project" → "Deploy from GitHub repo"
+5. Select your `digital-video-store` repository
+6. Railway should now detect and build the Spring Boot application
 
-### 3. Environment Variables (if needed)
-If Railway needs additional configuration, add these environment variables in Railway dashboard:
+### 3. Manual Override (if needed)
+If Railway still has issues, manually set these in Railway dashboard:
+- **Build Command**: `cd backend && ./mvnw clean package -DskipTests`
+- **Start Command**: `cd backend && java -Dserver.port=$PORT -jar target/*.jar`
+- **Root Directory**: Leave empty
+
+### 4. Environment Variables
+Railway should automatically detect these, but you can add manually if needed:
 - `SPRING_PROFILES_ACTIVE=production`
-- `PORT=8080` (Railway usually sets this automatically)
+- `JAVA_VERSION=17`
 
 ### 4. Expected Railway Behavior
 - Railway will detect the Spring Boot app using our configuration
