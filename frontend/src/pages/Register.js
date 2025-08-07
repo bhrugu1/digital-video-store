@@ -69,10 +69,16 @@ const Register = () => {
       console.log('Registration API Response:', result);
 
       if (result.success) {
-        // Success! Alert user and redirect to login
-        alert('✅ Registration successful! Please log in with your new account.');
-        console.log('✅ User registered successfully:', result.data);
-        navigate('/login');
+        // Success! Store user data and redirect to dashboard
+        localStorage.setItem('user', JSON.stringify(result.data));
+        localStorage.setItem('isLoggedIn', 'true');
+        
+        // Trigger custom event to update header
+        window.dispatchEvent(new Event('authStateChanged'));
+        
+        alert('✅ Registration successful! Welcome to StreamVault!');
+        console.log('✅ User registered and logged in successfully:', result.data);
+        navigate('/dashboard');
       } else {
         // Registration failed
         setError(result.message || 'Registration failed. Please try again.');

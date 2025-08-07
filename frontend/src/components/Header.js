@@ -7,6 +7,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
   const navigate = useNavigate();
 
   // Check login status on component mount
@@ -33,8 +34,12 @@ const Header = () => {
     // Listen for storage changes (when user logs in/out in another tab)
     window.addEventListener('storage', checkLoginStatus);
     
+    // Listen for custom auth events (when user logs in/out in same tab)
+    window.addEventListener('authStateChanged', checkLoginStatus);
+    
     return () => {
       window.removeEventListener('storage', checkLoginStatus);
+      window.removeEventListener('authStateChanged', checkLoginStatus);
     };
   }, []);
 
@@ -44,9 +49,36 @@ const Header = () => {
     localStorage.removeItem('isLoggedIn');
     setIsLoggedIn(false);
     setUser(null);
+    setShowUserDropdown(false);
+    
+    // Trigger custom event to update other components
+    window.dispatchEvent(new Event('authStateChanged'));
+    
     alert('👋 You have been logged out successfully.');
     navigate('/');
   };
+
+  // Toggle user dropdown
+  const toggleUserDropdown = () => {
+    setShowUserDropdown(!showUserDropdown);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.user-dropdown')) {
+        setShowUserDropdown(false);
+      }
+    };
+
+    if (showUserDropdown) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showUserDropdown]);
 
   // Handle search form submission
   const handleSearch = (e) => {
@@ -91,15 +123,40 @@ const Header = () => {
           {/* User authentication links - show different options based on login status */}
           <div className="auth-links">
             {isLoggedIn ? (
-              // Show when user is logged in
-              <>
-                <Link to="/dashboard" className="nav-link dashboard-btn">
-                  👤 Dashboard
-                </Link>
-                <button onClick={handleLogout} className="nav-link logout-btn">
-                  Logout
+              // Show when user is logged in - User dropdown menu
+              <div className="user-dropdown">
+                <button 
+                  onClick={toggleUserDropdown} 
+                  className="user-dropdown-trigger"
+                >
+                  👤 {user?.fullName || user?.name || 'User'} ▼
                 </button>
-              </>
+                {showUserDropdown && (
+                  <div className="user-dropdown-menu">
+                    <Link 
+                      to="/dashboard" 
+                      className="dropdown-item"
+                      onClick={() => setShowUserDropdown(false)}
+                    >
+                      📊 Dashboard
+                    </Link>
+                    <Link 
+                      to="/profile" 
+                      className="dropdown-item"
+                      onClick={() => setShowUserDropdown(false)}
+                    >
+                      ⚙️ Profile Settings
+                    </Link>
+                    <hr className="dropdown-divider" />
+                    <button 
+                      onClick={handleLogout} 
+                      className="dropdown-item logout-item"
+                    >
+                      🚪 Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               // Show when user is not logged in
               <>

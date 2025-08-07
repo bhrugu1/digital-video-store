@@ -63,6 +63,9 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(result.data));
         localStorage.setItem('isLoggedIn', 'true');
         
+        // Trigger custom event to update header
+        window.dispatchEvent(new Event('authStateChanged'));
+        
         alert('✅ Login successful! Welcome back!');
         console.log('✅ User logged in successfully:', result.data);
         navigate('/dashboard');
