@@ -30,9 +30,9 @@ const Home = () => {
         console.log('Movies API Response:', moviesResult);
         console.log('TV Shows API Response:', tvShowsResult);
         
-        // Extract data from ApiResponse wrapper
-        const movies = moviesResult.success ? moviesResult.data : [];
-        const tvShows = tvShowsResult.success ? tvShowsResult.data : [];
+        // API returns direct arrays, not wrapped in ApiResponse
+        const movies = Array.isArray(moviesResult) ? moviesResult : [];
+        const tvShows = Array.isArray(tvShowsResult) ? tvShowsResult : [];
         
         // Use first 4 items as "featured" content
         const featuredMoviesData = movies.slice(0, 4);

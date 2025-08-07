@@ -35,8 +35,8 @@ const Listings = () => {
       
       console.log('🔍 Search API Response:', result);
       
-      // Extract data from ApiResponse wrapper
-      const searchData = result.success ? result.data : [];
+      // API returns direct array, not wrapped in ApiResponse
+      const searchData = Array.isArray(result) ? result : [];
       console.log(`✅ Search results found: ${searchData.length} items`);
       
       setSearchResults(searchData);
@@ -91,9 +91,9 @@ const Listings = () => {
       console.log('Movies API Response:', moviesResult);
       console.log('TV Shows API Response:', tvShowsResult);
       
-      // Extract data from ApiResponse wrapper
-      const movies = moviesResult.success ? moviesResult.data : [];
-      const tvShows = tvShowsResult.success ? tvShowsResult.data : [];
+      // API returns direct arrays, not wrapped in ApiResponse
+      const movies = Array.isArray(moviesResult) ? moviesResult : [];
+      const tvShows = Array.isArray(tvShowsResult) ? tvShowsResult : [];
       
       // Combine both arrays
       const allMedia = [...movies, ...tvShows];

@@ -28,8 +28,8 @@ const Details = () => {
         const result = await response.json();
         console.log('Media Details API Response:', result);
         
-        // Extract data from ApiResponse wrapper
-        const mediaData = result.success ? result.data : null;
+        // API returns direct object, not wrapped in ApiResponse
+        const mediaData = result && result.id ? result : null;
         
         if (!mediaData) {
           throw new Error("Media data not found in response");
