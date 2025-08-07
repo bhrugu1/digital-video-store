@@ -18,29 +18,25 @@ const Home = () => {
       try {
         console.log('🎬 Fetching data from Spring Boot API...');
         
-        // Fetch general data (for hero slider) and featured content separately
-        const [moviesResponse, tvShowsResponse, featuredMoviesResponse, featuredTVResponse] = await Promise.all([
+        // Fetch general data and use first few items as featured content
+        const [moviesResponse, tvShowsResponse] = await Promise.all([
           fetch(`${config.API_BASE_URL}/movies`),
-          fetch(`${config.API_BASE_URL}/tvshows`),
-          fetch(`${config.API_BASE_URL}/featured/movies`),    // ✨ Using dedicated featured endpoint
-          fetch(`${config.API_BASE_URL}/featured/tvshows`)    // ✨ Using dedicated featured endpoint
+          fetch(`${config.API_BASE_URL}/tvshows`)
         ]);
         
         const moviesResult = await moviesResponse.json();
         const tvShowsResult = await tvShowsResponse.json();
-        const featuredMoviesResult = await featuredMoviesResponse.json();
-        const featuredTVResult = await featuredTVResponse.json();
         
         console.log('Movies API Response:', moviesResult);
         console.log('TV Shows API Response:', tvShowsResult);
-        console.log('🌟 Featured Movies API Response:', featuredMoviesResult);
-        console.log('🌟 Featured TV Shows API Response:', featuredTVResult);
         
         // Extract data from ApiResponse wrapper
         const movies = moviesResult.success ? moviesResult.data : [];
         const tvShows = tvShowsResult.success ? tvShowsResult.data : [];
-        const featuredMoviesData = featuredMoviesResult.success ? featuredMoviesResult.data : [];
-        const featuredTVData = featuredTVResult.success ? featuredTVResult.data : [];
+        
+        // Use first 4 items as "featured" content
+        const featuredMoviesData = movies.slice(0, 4);
+        const featuredTVData = tvShows.slice(0, 4);
         
         // Combine all media for hero slider
         const allMedia = [...movies, ...tvShows];
