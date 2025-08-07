@@ -1,0 +1,13 @@
+[build]
+# Tell Railway to build from the backend directory
+workingDir = "backend"
+
+[deploy]
+# Tell Railway to run from the backend directory
+workingDir = "backend"
+# Start command for Spring Boot
+startCommand = "./mvnw spring-boot:run"
+
+[environments.production]
+# Production environment variables
+SPRING_PROFILES_ACTIVE = "production"

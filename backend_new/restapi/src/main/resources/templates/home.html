@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Video Store</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 800px;
+            margin: 2rem;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .api-info {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        .endpoint-list {
+            text-align: left;
+            background: #e9ecef;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .endpoint {
+            margin: 0.5rem 0;
+            font-family: 'Courier New', monospace;
+            color: #495057;
+        }
+        .method {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .status {
+            background: #28a745;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 1rem 0;
+        }
+        .footer {
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Digital Video Store</h1>
+        <p class="subtitle">Your Comprehensive Movie & TV Show API Platform</p>
+        
+        <div class="status">✅ API Server Running Successfully</div>
+        
+        <div class="api-info">
+            <h3>🚀 Available API Endpoints</h3>
+            
+            <h4>📽️ Media Management (9 endpoints)</h4>
+            <div class="endpoint-list">
+                <div class="endpoint"><span class="method">POST</span> /api/media - Create movie/TV show</div>
+                <div class="endpoint"><span class="method">GET</span> /api/movies - Get all movies</div>
+                <div class="endpoint"><span class="method">GET</span> /api/tvshows - Get all TV shows</div>
+                <div class="endpoint"><span class="method">GET</span> /api/media/search?title=keyword - Search by title</div>
+                <div class="endpoint"><span class="method">GET</span> /api/featured/movies - Featured movies</div>
+                <div class="endpoint"><span class="method">GET</span> /api/featured/tvshows - Featured TV shows</div>
+                <div class="endpoint"><span class="method">GET</span> /api/media/{id} - Get specific media</div>
+                <div class="endpoint"><span class="method">PUT</span> /api/media/{id} - Update media</div>
+                <div class="endpoint"><span class="method">DELETE</span> /api/media/{id} - Delete media</div>
+            </div>
+            
+            <h4>🔐 User Authentication (2 endpoints)</h4>
+            <div class="endpoint-list">
+                <div class="endpoint"><span class="method">POST</span> /api/auth/register - User registration</div>
+                <div class="endpoint"><span class="method">POST</span> /api/auth/login - User authentication</div>
+            </div>
+            
+            <h4>👥 Customer Management</h4>
+            <div class="endpoint-list">
+                <div class="endpoint"><span class="method">POST</span> /api/customers/register - Customer registration</div>
+                <div class="endpoint"><span class="method">GET</span> /api/customers/{id} - Get customer by ID</div>
+            </div>
+        </div>
+        
+        <div class="api-info">
+            <h3>🧪 Quick Test Links</h3>
+            <p>Click these links to test your API endpoints:</p>
+            <div style="margin: 1rem 0;">
+                <a href="/api/movies" target="_blank" style="margin: 0.5rem; padding: 0.5rem 1rem; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">📽️ View Movies</a>
+                <a href="/api/tvshows" target="_blank" style="margin: 0.5rem; padding: 0.5rem 1rem; background: #28a745; color: white; text-decoration: none; border-radius: 5px;">📺 View TV Shows</a>
+                <a href="/api/featured/movies" target="_blank" style="margin: 0.5rem; padding: 0.5rem 1rem; background: #ffc107; color: black; text-decoration: none; border-radius: 5px;">⭐ Featured Movies</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🏗️ Built with Spring Boot 3.5.4 | 🗄️ MongoDB Atlas | 🔒 BCrypt Security</p>
+            <p>Server running on <strong>http://localhost:8080</strong></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+{
+  "media": [
+    {
+      "id": 1,
+      "title": "Inception",
+      "type": "Movie",
+      "synopsis": "A thief who steals corporate secrets through use of dream-sharing technology.",
+      "poster": "https://m.media-amazon.com/images/I/51v5ZpFyaFL._AC_.jpg",
+      "posterLarge": "https://m.media-amazon.com/images/I/81p+xe8cbnL._AC_SL1500_.jpg",
+      "rent": 3.99,
+      "buy": 12.99
+    },
+    {
+      "id": 2,
+      "title": "The Matrix",
+      "type": "Movie",
+      "synopsis": "A computer hacker learns about the true nature of his reality.",
+      "poster": "https://m.media-amazon.com/images/I/51EG732BV3L.jpg",
+      "posterLarge": "https://m.media-amazon.com/images/I/71o7FpvfXBL._AC_SL1024_.jpg",
+      "rent": 3.49,
+      "buy": 11.99
+    },
+    {
+      "id": 3,
+      "title": "Breaking Bad",
+      "type": "TV Show",
+      "synopsis": "A chemistry teacher turned methamphetamine producer.",
+      "poster": "https://m.media-amazon.com/images/I/81p+xe8cbnL._AC_SY679_.jpg",
+      "posterLarge": "https://m.media-amazon.com/images/I/91nPxhU3bNL._AC_SL1500_.jpg",
+      "rent": 2.49,
+      "buy": 9.99
+    },
+    {
+      "id": 4,
+      "title": "The Dark Knight",
+      "type": "Movie",
+      "synopsis": "Batman battles the Joker in Gotham's darkest hour.",
+      "poster": "https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+      "rent": 3.99,
+      "buy": 13.99
+    },
+    {
+      "id": 5,
+      "title": "Game of Thrones",
+      "type": "TV Show",
+      "synopsis": "Nine noble families fight for control over the lands of Westeros.",
+      "poster": "https://image.tmdb.org/t/p/original/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+      "rent": 3.49,
+      "buy": 14.49
+    },
+    {
+      "id": 6,
+      "title": "Black Panther",
+      "type": "Movie",
+      "synopsis": "T’Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward as king.",
+      "poster": "https://image.tmdb.org/t/p/original/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
+      "rent": 3.75,
+      "buy": 12.99
+    },
+    {
+      "id": 7,
+      "title": "The Office",
+      "type": "TV Show",
+      "synopsis": "A mockumentary sitcom about office life at Dunder Mifflin.",
+      "poster": "https://image.tmdb.org/t/p/original/qWnJzyZhyy74gjpSjIXWmuk0ifX.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/qWnJzyZhyy74gjpSjIXWmuk0ifX.jpg",
+      "rent": 2.99,
+      "buy": 10.49
+    },
+    {
+      "id": 8,
+      "title": "Avatar: The Way of Water",
+      "type": "Movie",
+      "synopsis": "Jake Sully and his family return to Pandora in this spectacular sequel to the groundbreaking original film.",
+      "poster": "https://image.tmdb.org/t/p/original/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+      "rent": 5.99,
+      "buy": 19.99
+    },
+    {
+      "id": 9,
+      "title": "Top Gun: Maverick",
+      "type": "Movie",
+      "synopsis": "After thirty years, Maverick is still pushing the envelope as a top naval aviator, training a new generation of pilots.",
+      "poster": "https://image.tmdb.org/t/p/original/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+      "rent": 4.99,
+      "buy": 16.99
+    },
+    {
+      "id": 10,
+      "title": "Spider-Man: No Way Home",
+      "type": "Movie",
+      "synopsis": "Peter Parker's secret identity is revealed, forcing him to ask Doctor Strange for help, unleashing the multiverse.",
+      "poster": "https://image.tmdb.org/t/p/original/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+      "rent": 4.99,
+      "buy": 15.99
+    },
+    {
+      "id": 11,
+      "title": "Dune",
+      "type": "Movie",
+      "synopsis": "Paul Atreides leads nomadic tribes in a revolt against the galactic emperor and his father's evil nemesis.",
+      "poster": "https://image.tmdb.org/t/p/original/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+      "rent": 4.49,
+      "buy": 14.99
+    },
+    {
+      "id": 12,
+      "title": "The Batman",
+      "type": "Movie",
+      "synopsis": "Batman ventures into Gotham City's underworld when a sadistic killer leaves behind a trail of cryptic clues.",
+      "poster": "https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg",
+      "rent": 4.99,
+      "buy": 16.99
+    },
+    {
+      "id": 13,
+      "title": "Encanto",
+      "type": "Movie",
+      "synopsis": "A Colombian teenage girl has to face the frustration of being the only member of her family without magical powers.",
+      "poster": "https://image.tmdb.org/t/p/original/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg",
+      "rent": 3.99,
+      "buy": 12.99
+    },
+    {
+      "id": 14,
+      "title": "Wednesday",
+      "type": "TV Show",
+      "synopsis": "Wednesday Addams' years as a student, when she attempts to master her emerging psychic ability and solve a mystery.",
+      "poster": "https://image.tmdb.org/t/p/original/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
+      "rent": 3.49,
+      "buy": 11.99
+    },
+    {
+      "id": 15,
+      "title": "House of the Dragon",
+      "type": "TV Show",
+      "synopsis": "The Targaryen civil war, set 200 years before the events of Game of Thrones.",
+      "poster": "https://image.tmdb.org/t/p/original/7QMsOTMUswlwxJP0rTTZfmz2tX2.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/7QMsOTMUswlwxJP0rTTZfmz2tX2.jpg",
+      "rent": 3.99,
+      "buy": 13.99
+    },
+    {
+      "id": 16,
+      "title": "The Bear",
+      "type": "TV Show",
+      "synopsis": "A young chef from the fine dining world returns to Chicago to run his deceased brother's Italian beef sandwich shop.",
+      "poster": "https://image.tmdb.org/t/p/original/sHFlbKS3WLqMnp9t2ghADIJFnuQ.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/sHFlbKS3WLqMnp9t2ghADIJFnuQ.jpg",
+      "rent": 2.99,
+      "buy": 10.99
+    },
+    {
+      "id": 17,
+      "title": "The Last of Us",
+      "type": "TV Show",
+      "synopsis": "Twenty years after a fungal outbreak ravages the planet, survivors Joel and Ellie embark on a journey across America.",
+      "poster": "https://image.tmdb.org/t/p/original/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg",
+      "rent": 4.49,
+      "buy": 15.99
+    },
+    {
+      "id": 18,
+      "title": "Euphoria",
+      "type": "TV Show",
+      "synopsis": "A group of high school students navigate love and friendships in a world of drugs, sex, trauma and social media.",
+      "poster": "https://image.tmdb.org/t/p/original/jtnfNzqZwN4E32FGGxx1YZaBWWf.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/jtnfNzqZwN4E32FGGxx1YZaBWWf.jpg",
+      "rent": 3.49,
+      "buy": 12.49
+    },
+    {
+      "id": 19,
+      "title": "Squid Game",
+      "type": "TV Show",
+      "synopsis": "Hundreds of cash-strapped players accept an invitation to compete in children's games for a billion-dollar prize.",
+      "poster": "https://image.tmdb.org/t/p/original/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
+      "rent": 3.99,
+      "buy": 13.49
+    },
+    {
+      "id": 20,
+      "title": "Everything Everywhere All at Once",
+      "type": "Movie",
+      "synopsis": "A middle-aged Chinese immigrant is swept up into an insane adventure in which she alone can save existence.",
+      "poster": "https://image.tmdb.org/t/p/original/w3LxiVYdWWRvEVdn5RYq6jIqkb1.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/w3LxiVYdWWRvEVdn5RYq6jIqkb1.jpg",
+      "rent": 4.99,
+      "buy": 16.99
+    },
+    {
+      "id": 21,
+      "title": "Thor: Love and Thunder",
+      "type": "Movie",
+      "synopsis": "Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher.",
+      "poster": "https://image.tmdb.org/t/p/original/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
+      "rent": 4.99,
+      "buy": 15.99
+    },
+    {
+      "id": 22,
+      "title": "Doctor Strange in the Multiverse of Madness",
+      "type": "Movie",
+      "synopsis": "Doctor Strange teams up with a mysterious teenage girl who can travel across multiverses.",
+      "poster": "https://image.tmdb.org/t/p/original/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
+      "rent": 4.99,
+      "buy": 15.99
+    },
+    {
+      "id": 23,
+      "title": "Peaky Blinders",
+      "type": "TV Show",
+      "synopsis": "A gangster family epic set in 1900s England, centering on a gang who sew razor blades in the peaks of their caps.",
+      "poster": "https://image.tmdb.org/t/p/original/vUUqzWa2LnHIVqkaKVlVGkVcZIW.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/vUUqzWa2LnHIVqkaKVlVGkVcZIW.jpg",
+      "rent": 3.49,
+      "buy": 12.99
+    },
+    {
+      "id": 24,
+      "title": "The Witcher",
+      "type": "TV Show",
+      "synopsis": "Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world where people prove more wicked than beasts.",
+      "poster": "https://image.tmdb.org/t/p/original/7vjaCdMw15FEbXyLQTVa04URsPm.jpg",
+      "posterLarge": "https://image.tmdb.org/t/p/original/7vjaCdMw15FEbXyLQTVa04URsPm.jpg",
+      "rent": 3.99,
+      "buy": 13.99
+    }
+  ]
+}
