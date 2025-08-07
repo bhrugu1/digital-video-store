@@ -16,7 +16,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {"http://localhost:3000", "https://digital-video-store-iota.vercel.app"}) // Allow React app to access this API
 public class MediaController {
     
     @Autowired
