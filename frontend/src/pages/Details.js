@@ -1,6 +1,7 @@
 // Details page component - Shows individual movie/TV show information
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import config from '../config/api';
 
 const Details = () => {
   // Get the ID from the URL (e.g., /details/5 gives us id = "5")
@@ -20,7 +21,7 @@ const Details = () => {
         console.log(`🎬 Fetching details for media ID: ${id}`);
         
         // Use your comprehensive API endpoint for getting media by ID
-        const response = await fetch(`http://localhost:8080/api/media/${id}`);
+        const response = await fetch(`${config.API_BASE_URL}/media/${id}`);
         
         if (!response.ok) throw new Error("Media not found");
         

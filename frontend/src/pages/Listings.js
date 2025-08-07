@@ -1,6 +1,7 @@
 // Listings page component - Shows all movies and TV shows with filtering and search
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import config from '../config/api';
 
 const Listings = () => {
   // State for storing all media items
@@ -29,7 +30,7 @@ const Listings = () => {
       console.log(`🔍 Searching for: "${query}"`);
       
       // Use the dedicated search endpoint from Assignment 2
-      const response = await fetch(`http://localhost:8080/api/media/search?title=${encodeURIComponent(query)}`);
+      const response = await fetch(`${config.API_BASE_URL}/media/search?title=${encodeURIComponent(query)}`);
       const result = await response.json();
       
       console.log('🔍 Search API Response:', result);
@@ -80,8 +81,8 @@ const Listings = () => {
       
       // Fetch movies and TV shows separately using your comprehensive API
       const [moviesResponse, tvShowsResponse] = await Promise.all([
-        fetch('http://localhost:8080/api/movies'),
-        fetch('http://localhost:8080/api/tvshows')
+        fetch(`${config.API_BASE_URL}/movies`),
+        fetch(`${config.API_BASE_URL}/tvshows`)
       ]);
       
       const moviesResult = await moviesResponse.json();

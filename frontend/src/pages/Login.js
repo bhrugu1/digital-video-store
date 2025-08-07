@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Auth.css';
+import config from '../config/api';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const Login = () => {
       console.log('🔐 Attempting login with Assignment 2 API...');
       
       // Use the Assignment 2 login endpoint
-      const response = await fetch('http://localhost:8080/api/auth/login', {
+      const response = await fetch(`${config.API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

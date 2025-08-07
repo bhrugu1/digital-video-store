@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Auth.css';
+import config from '../config/api';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ const Register = () => {
       console.log('👤 Attempting registration with Assignment 2 API...');
       
       // Use the Assignment 2 registration endpoint
-      const response = await fetch('http://localhost:8080/api/auth/register', {
+      const response = await fetch(`${config.API_BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
