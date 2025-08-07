@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/customers")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3002"}) // Allow React app access
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3002", "https://digital-video-store-iota.vercel.app"}) // Allow React app access
 public class CustomerController {
     
     @Autowired
